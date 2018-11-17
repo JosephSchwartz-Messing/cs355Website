@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Joseph's CSS355 Website</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        th{
+            min-width: 130px;
+        }
+        td{
+            word-wrap: break-word;
+            max-width: 130px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="./index.html">Joseph Schwartz-Messing</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./index.html">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./screens.html">Browser, Screen, Window<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="./url.html">URL Analyzer<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./ip.html">IP Address Manager<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Assignments</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#"></a>
+                        <a class="dropdown-item" href="https://learn.zybooks.com/zybook/QCCSCI355TeitelmanFall2018">Zybooks</a>
+                        <a class="dropdown-item" href="https://bbhosted.cuny.edu/bbcswebdav/pid-37561132-dt-content-rid-235555193_1/xid-235555193_1">Download Assignment 0</a>
+                        <a class="dropdown-item" href="https://bbhosted.cuny.edu/bbcswebdav/pid-37574708-dt-content-rid-235672966_1/xid-235672966_1">Download Assignment 1</a>
+                        <a class="dropdown-item" href="https://bbhosted.cuny.edu/bbcswebdav/pid-37639611-dt-content-rid-236797874_1/xid-236797874_1">Download Assignment 2</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <main role="main" class="container">
+
+            <div class="starter-template">
+                <h1>URL Analyzer</h1>
+                <input style="border:1px solid black;" type="file" name="file" id="file">
+
+            </div>
+            <div class="container-fluid">
+                <table id="urlTable" class="table table-striped table-hover table-sm table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Scheme</th>
+                            <th>User Info</th>
+                            <th>Host</th>
+                            <th>Port</th>
+                            <th>Path</th>
+                            <th>Query</th>
+                            <th>Fragment</th>
+                            <th>IP Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!--            <div id="piechart"></div>-->
+        </main>
+
+    </div>
+    <!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        document.getElementById('file').onchange = function() {
+
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onload = function(progressEvent) {
+
+                var lines = this.result.split('\n');
+                for (var line = 0; line < lines.length; line++) {
+                    var url = lines[line];
+                    var parsedURL = new URL(url);
+                    var tableData = [parsedURL.protocol,
+                        parsedURL.username,
+                        parsedURL.hostname,
+                        parsedURL.port,
+                        parsedURL.href,
+                        parsedURL.search,
+                        parsedURL.hash,
+                        ""
+                    ]
+                    addNextRow(document.getElementById("urlTable").children[1], tableData);
+                }
+
+                fetchIPs(lines)
+
+                var tlds = [
+                    ["TLDs", "Most Common"]
+                ];
+                var schemes = [
+                    ["Schemes", "Most Common"]
+                ]
+                var hosts = [
+                    ["Hosts", "Most Common"]
+                ]
+
+                tlds = bucket(function(elem) {
+                    var url = new URL(elem);
+                    return tld(url.hostname);
+                }, lines, tlds)
+
+                schemes = bucket(function(elem) {
+                    var url = new URL(elem);
+                    return url.protocol;
+                }, lines, schemes)
+                hosts = bucket(function(elem) {
+                    var url = new URL(elem);
+                    return url.hostname;
+                }, lines, hosts)
+
+                loadChart(tlds, "piechart1")
+                loadChart(schemes, "piechart2")
+                loadChart(hosts, "piechart3")
+
+            };
+            reader.readAsText(file);
+
+        };
+
+    </script>
+
+    <script>
+        var addNextRow = function(tableBody, data) {
+            document.getElementById("urlTable").children[1]
+            var newr = document.createElement("tr")
+            for (var d of data) {
+                var nd = document.createElement("td");
+                nd.innerHTML = d;
+                newr.appendChild(nd);
+            }
+            console.log(newr)
+            tableBody.appendChild(newr);
+        }
+
+
+        var fetchIPs = function(lines) {
+            for (line of lines) {
+                var parsedURL = new URL(line);
+                fetch("https://dns.google.com/resolve?name=" + parsedURL.hostname)
+                    .then(function(data) {
+                        return data.json()
+                    })
+                    .then(function(res) {
+                        theips = res.Answer.map(function(elem) {
+                            return elem.data
+                        });
+                        var tableRows = document.getElementsByTagName("tr")
+                        for (var row = 0; row < tableRows.length; row++) {
+                            if (res.Question[0].name.indexOf(tableRows[row].children[2].innerHTML) !== -1) {
+                                //                                console.log(theips)
+                                //                                console.log(theips.filer())
+                                tableRows[row].children[7].innerHTML = JSON.stringify(theips.filter(function(elem) {
+                                    return !/[a-z]/i.test(elem);
+                                }));
+                            }
+                        }
+                        return theips;
+                    })
+            }
+        }
+        var tld = function(str) {
+            var newstr = ""
+            for (var i = str.length - 1; i >= 0; i--) {
+                if (str[i] !== ".") {
+                    newstr = str[i] + newstr;
+                } else {
+                    break;
+                }
+            }
+            newstr = "." + newstr;
+            return newstr;
+        }
+
+        var bucket = function(fxn, array1, array2) {
+
+            for (var elem of array1) {
+                for (var j = 0; j < array2.length; j++) {
+                    var val = fxn(elem);
+                    if (val === array2[j][0]) {
+                        array2[j][1]++;
+                        break;
+                    } else if (j === array2.length - 1) {
+                        array2.push([val, 1])
+                    }
+                }
+            }
+            return array2;
+        }
+
+        var loadChart = function(newdata, chartname) {
+            google.charts.load('current', {
+                'packages': ['corechart']
+            });
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Draw the chart and set the chart values
+            function drawChart() {
+                var chart = document.createElement("div");
+                chart.setAttribute("id", chartname);
+                chart.setAttribute("style", "display:inline-block;");
+                document.body.appendChild(chart);
+
+                var data = google.visualization.arrayToDataTable(newdata);
+
+                // Optional; add a title and set the width and height of the chart
+                var options = {
+                    'title': newdata[0][0] + " " + newdata[0][1],
+                    'width': 550,
+                    'height': 400
+                };
+
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById(chartname));
+                chart.draw(data, options);
+            }
+        }
+
+    </script>
+
+
+
+
+
+
+
+</body>
+
+</html>

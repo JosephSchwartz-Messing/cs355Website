@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Joseph's CSS355 Website</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+
+</head>
+
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="./index.html">Joseph Schwartz-Messing</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./index.html">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./screens.html">Browser, Screen, Window<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./url.html">URL Analyzer<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="./ip.html">IP Address Manager<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Assignments</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#"></a>
+                        <a class="dropdown-item" href="https://learn.zybooks.com/zybook/QCCSCI355TeitelmanFall2018">Zybooks</a>
+                        <a class="dropdown-item" href="https://bbhosted.cuny.edu/bbcswebdav/pid-37561132-dt-content-rid-235555193_1/xid-235555193_1">Download Assignment 0</a>
+                        <a class="dropdown-item" href="https://bbhosted.cuny.edu/bbcswebdav/pid-37574708-dt-content-rid-235672966_1/xid-235672966_1">Download Assignment 1</a>
+                        <a class="dropdown-item" href="https://bbhosted.cuny.edu/bbcswebdav/pid-37639611-dt-content-rid-236797874_1/xid-236797874_1">Download Assignment 2</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <main role="main" class="container">
+
+            <div class="starter-template">
+                <h1>IP Address Manager</h1>
+            </div>
+
+
+            <form>
+                <div class="form-group">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Addressing Scheme</label>
+                    <select id="schemeField" class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                        <option value="ipv4" selected>ipv4</option>
+                        <option value="ipv6">ipv6</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Class</label>
+                    <select id="classField" class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                        <option selected value="classless">Classless</option>
+                        <option value="Auto">Auto (class based on number of Hosts)</option>
+                        <option value="A">Class A</option>
+                        <option value="B">Class B</option>
+                        <option value="C">Class C</option>
+                        <option value="D">Class D</option>
+                        <option value="E">Class E</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="example-number-input" class="col-form-label">How many hosts does this network require?</label>
+                    <input id="hostsField" class="form-control" type="number" value="10" id="example-number-input">
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+            </form>
+            <div class="container">
+                <table id="AddressTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Binary</th>
+                            <th>Dotted Decimal/Colon Hex Notation</th>
+                        </tr>
+                    </thead>
+                </table>
+                <table id="networksTable" class="table table-striped">
+                </table>
+            </div>
+
+
+        </main>
+
+    </div>
+    <!-- /.container -->
+    <script type="text/javascript">
+        (function() {
+            function cidrToSubnetMask(cidr) {
+                return binaryToDottedDecimal("1".repeat(cidr) + "0".repeat(32 - cidr));
+            }
+
+            function decimalToBinary(decimalNumber) { //10
+                var binNum = "";
+                var placeHolder = []; //
+                while (decimalNumber > 0) { //true true
+                    var place = Math.floor(Math.log2(decimalNumber)); //3 1
+                    placeHolder.unshift(place); //[1,3]
+                    decimalNumber = decimalNumber - Math.pow(2, place); //10 - 8 = 2, 2 - 2 = 0
+                }
+                //        console.log(placeHolder);
+                var i = placeHolder[placeHolder.length - 1]; //3
+                while (i >= 0) { //3 true
+                    //            console.log(i);
+                    if (placeHolder.indexOf(i) === -1) { //3 false
+                        binNum = binNum + "0";
+                    } else {
+                        binNum = binNum + "1";
+                    }
+                    i--;
+                }
+                return binNum;
+            }
+
+            function binaryToDottedDecimal(binaryNumber) {
+                var dottedDecimalNumber = "";
+                for (var i = 0; i < binaryNumber.length; i += 8) {
+                    var byte = binaryNumber.slice(i, i + 8) || binaryNumber.slice(i);
+                    console.log(byte, " ", BinaryToDecimal(byte));
+                    dottedDecimalNumber += BinaryToDecimal(byte) + ".";
+                }
+                return dottedDecimalNumber.slice(0, -1);
+            }
+
+            function randomBinaryNumber(size) {
+                var binaryNum = ""
+                while (size != 0) {
+                    var newBit = Math.round(Math.random());
+                    binaryNum += newBit;
+                    size--;
+                }
+                return binaryNum;
+            }
+                      
+            function checkNetworkForNum(num, networksArr){
+                for(var i = 0; i < networksArr.length; i++){
+                    if(num === networksArr[i]["networkAddress"]){
+                        return 1;
+                    }
+                    return 0;
+                }
+            }
+            function randomAvailableNetwork(cidr){
+                var start = randomBinaryNumber(cidr);
+                while(checkNetworkForNum(start, networks)){
+                    start = randomBinaryNumber(cidr)
+                }
+                return start;
+            }
+            
+            function BinaryToDecimal(binaryNumber) {
+                var exp = 0;
+                var index = binaryNumber.length - 1;
+                var decimalVal = 0;
+                while (index !== -1) {
+                    decimalVal += parseInt(binaryNumber[index]) * Math.pow(2, exp);
+                    exp++;
+                    index--;
+                }
+                return decimalVal;
+            }
+
+            function padBinaryZeros(number, pad) {
+                number = "0".repeat(pad - number.length) + number;
+                return number;
+            }
+
+            function padBinaryOnes(number, pad) {
+                number = "1".repeat(pad - number.length) + number;
+                return number;
+            }
+
+            function hostBitsFromHostNumber(numHosts) {
+                return Math.ceil(Math.log2(parseInt(numHosts) + 2))
+            }
+
+            function getMaxHostAddressesFromBits(bits) {
+                return (Math.pow(2, bits) - 2);
+            }
+
+            function hostRangeInDecimal(numHostBits) {
+                var start = BinaryToDecimal(padBinaryZeros("", numHostBits - 1) + "1")
+                var end = BinaryToDecimal(padBinaryOnes("", numHostBits - 1) + "0")
+                return start + ":" + end;
+            }
+
+            function hostRangeInBinary(numHostBits) {
+                var start = padBinaryZeros("", numHostBits - 1) + "1";
+                var end = padBinaryOnes("", numHostBits - 1) + "0";
+                return start + ":" + end;
+            }
+
+            function generateClasslessIPs(numberOfHosts, networkID) {
+                var networkID = networkID ? networkID : randomBinaryNumber(32 - hostBitsFromHostNumber(numberOfHosts));
+                var ips = []
+                for (var i = 1; i <= numberOfHosts; i++) {
+                    var hostBits = hostBitsFromHostNumber(numberOfHosts);
+                    var address = networkID + padBinaryZeros(decimalToBinary(i), hostBits);
+                    ips.push(address);
+                }
+                return ips;
+            }
+
+            function generateClassfulIPs(numberOfHosts, classType, networkID) {
+                prefix = classPrefix(classType);
+                hostBits = 32 - (prefix.length * 8)
+                networkBits = 32 - prefix.length - hostBits
+                //            networkID = prefix + randomBinaryNumber(networkBits);
+                var ips = [];
+                for (var i = 1; i <= numberOfHosts; i++) {
+                    var address = networkID + padBinaryZeros(decimalToBinary(i), hostBits)
+                    ips.push(address);
+                }
+                return ips;
+            }
+
+            function classPrefix(cls) {
+                switch (cls) {
+                    case "A":
+                        return "0";
+                    case "B":
+                        return "10";
+                    case "C":
+                        return "110";
+                    case "D":
+                        return "1110";
+                    case "E":
+                        return "1111";
+                }
+            }
+
+            function generateAddressClass(numberOfHosts) {
+                var classType;
+                var maxAddresses;
+                for (var i = 3; i >= 1; i--) {
+                    maxAddresses = getMaxHostAddressesFromBits(24 / i);
+                    if (numberOfHosts <= maxAddresses) {
+                        classType = String.fromCharCode(64 + i);
+                        break;
+                    }
+                }
+                //        console.log(classType);
+                return classType;
+            }
+
+            function maximumSupportedHostFromClass(cls) {
+                switch (cls) {
+                    case "A":
+                        return 16777214;
+                    case "B":
+                        return 65534;
+                    case "C":
+                        return 254;
+                }
+            }
+            
+            function binaryToColonHex(num){
+                var final = ""
+                for(var i = 0; i < num.length; i+=16){
+                    var slice = num.slice(i, i+16)
+                    var hex = parseInt(slice ,2).toString(16)
+                    final+= hex+":"
+                }
+                return final;
+            }
+
+            function ipFormattedForTable(ip){
+                var formatted = ""
+                for(var i = 0; i < ip.length; i+=32){
+                    formatted+= ip.slice(i, i+32) + "<br>"
+                }
+                return formatted;
+            }
+            
+            function Network(scheme, cls, networkAddress, CIDR, BroadcastAddress, lastAssignedIP, availableAddresses) {
+                this.scheme = scheme;
+                this.cls = cls;
+                this.networkAddress = networkAddress;
+                this.CIDR = CIDR;
+                this.broadcastAddress = BroadcastAddress;
+                this.lastAssignedIP = lastAssignedIP;
+                this.availableAddresses = availableAddresses;
+            }
+
+            function updateNetworksTable() {
+
+                var table = document.getElementById("networksTable")
+                var headings = ["Scheme", "Class", "Network Address", "CIDR", "Broadcast Address", "Most Recently Assigned IP", "# of Unassigned Addresses"]
+                var headers = document.createElement("thead")
+                var titleRow = document.createElement("tr")
+                titleRow.innerHTML = '<td>Network Table </td>'
+                var headRow = document.createElement("tr")
+                headings.forEach(function(elem) {
+                    var heading = document.createElement("th");
+                    heading.innerHTML = elem;
+                    heading.setAttribute("scope", "col");
+                    headRow.appendChild(heading);
+                })
+                headers.appendChild(titleRow);
+                headers.appendChild(headRow)
+                var body = document.createElement("tbody")
+                networks.forEach(function(elem) {
+
+                    var newRow = document.createElement("tr")
+                    var sch = document.createElement("td")
+                    sch.innerHTML = elem.scheme;
+                    var cls = document.createElement("td")
+                    cls.innerHTML = elem["cls"]
+                    var na = document.createElement("td")
+                    na.innerHTML = elem["networkAddress"]
+                    var cidr = document.createElement("td")
+                    cidr.innerHTML = elem["CIDR"]
+                    var ba = document.createElement("td")
+                    ba.innerHTML = elem["broadcastAddress"]
+                    var laip = document.createElement("td")
+                    laip.innerHTML = elem["lastAssignedIP"]
+                    var avail = document.createElement("td")
+                    avail.innerHTML = elem["availableAddresses"]
+                    newRow.appendChild(sch)
+                    newRow.appendChild(cls)
+                    newRow.appendChild(na)
+                    newRow.appendChild(cidr)
+                    newRow.appendChild(ba)
+                    newRow.appendChild(laip)
+                    newRow.appendChild(avail)
+                    body.appendChild(newRow)
+
+                })
+                table.innerHTML = "";
+                table.appendChild(headers);
+                table.appendChild(body);
+            }
+
+            
+            function updateNetworks() {
+                console.log("hit update Ntworks")
+                if (localStorage.getItem("networks") !== null) {
+                    networks = JSON.parse(localStorage.getItem("networks"));
+                }
+
+                if (scheme === "ipv4") {
+                    if (classtype === 'classless') {
+                        hostBits = hostBitsFromHostNumber(numHosts);
+                        console.log(hostBits)
+                        cidr = 32 - hostBits;
+                        networkID = randomAvailableNetwork(cidr);
+                        addressClass = "-";
+
+                    } 
+                    else if (classtype === 'D' || classtype === "E") {
+                        hostBits = 28;
+                        cidr = "-";
+                        var prefix = (classtype === 'D') ? '1110' : '1111';
+                        networkID = prefix;
+                        addressClass = classtype;
+
+                    } 
+                    else {
+
+                        var addressClass = classtype;
+                        var idealAddressClass = generateAddressClass(numHosts);
+                        if ((addressClass === 'Auto')) {
+                            addressClass = idealAddressClass;
+                            alert("We will use " + idealAddressClass)
+                        } else if (numHosts > maximumSupportedHostFromClass(addressClass)) {
+                            alert("Address class " + addressClass + " can not support " + numHosts + " hosts and will require the use of multiple networks. We will use class " + idealAddressClass)
+                            addressClass = idealAddressClass;
+                        } else if (addressClass !== idealAddressClass) {
+                            alert("Address class " + addressClass + " can support " + numHosts + " hosts, however a class " + idealAddressClass + " will waste less addresses.")
+                        }
+
+                        var prefix = classPrefix(addressClass);
+                        hostBits = 32 - (prefix.length * 8)
+                        var networkBits = 32 - prefix.length - hostBits;
+                        console.log(networkBits);
+                        networkID = prefix + randomBinaryNumber(networkBits);
+                        cidr = networkID.length;
+                        console.log("class " + addressClass + " prefix: " + prefix + " networkID " + networkID + " cidr " + cidr + " numHost " + numHosts + " hostbits " + hostBits)
+                    }
+
+                    var networkAddress = binaryToDottedDecimal(networkID + padBinaryZeros("", hostBits));
+                    var broadcastAddress = binaryToDottedDecimal(networkID + padBinaryOnes("", hostBits));
+                    var maxHosts = getMaxHostAddressesFromBits(hostBits)
+                    var lastAssignedIP = binaryToDottedDecimal(networkID + padBinaryZeros(decimalToBinary(numHosts), hostBits));
+                    var availableAddresses = maxHosts - numHosts;
+                    var network = new Network(scheme, addressClass, networkAddress, cidr, broadcastAddress, lastAssignedIP, availableAddresses);
+                    networks.push(network);
+                    localStorage.setItem("networks", JSON.stringify(networks));
+                    console.log(localStorage.getItem);
+                } 
+                else {
+                    hostBits = hostBitsFromHostNumber(numHosts);
+                    console.log(hostBits)
+                    cidr = 128 - hostBits;
+                    networkID = randomBinaryNumber(cidr);
+                    addressClass = "-";
+                    var networkAddress = binaryToColonHex(networkID + padBinaryZeros("", hostBits));
+                    var broadcastAddress = binaryToColonHex(networkID + padBinaryOnes("", hostBits));
+                    var maxHosts = getMaxHostAddressesFromBits(hostBits)
+                    var lastAssignedIP = binaryToColonHex(networkID + padBinaryZeros(decimalToBinary(numHosts), hostBits));
+                    var availableAddresses = maxHosts - numHosts;
+                    var network = new Network(scheme, addressClass, networkAddress, cidr, broadcastAddress, lastAssignedIP, availableAddresses);
+                    networks.push(network);
+                    localStorage.setItem("networks", JSON.stringify(networks));
+                    console.log(localStorage.getItem);
+                }
+            }
+
+            function updateIPs() {
+                var ip;
+                var aTable = document.getElementById("AddressTable");
+                aTable.removeChild(aTable.lastChild);
+                var body = document.createElement("tbody")
+                for (var i = 1; i <= numHosts; i++) {
+                    var row = document.createElement("tr")
+                    var number = document.createElement("td")
+                    number.innerHTML = i;
+                    var ipCol = document.createElement("td")
+                    var ddnCol = document.createElement("td")
+                    var hostid = padBinaryZeros(decimalToBinary(i), hostBits);
+
+                    ip = networkID + hostid;
+                    ipCol.innerHTML = ipFormattedForTable(ip);
+                    var ddn = (scheme === "ipv4")
+                       ? binaryToDottedDecimal(ip) 
+                       : binaryToColonHex(ip);
+                    ddnCol.innerHTML = ddn;
+                    row.appendChild(number)
+                    row.appendChild(ipCol)
+                    row.appendChild(ddnCol)
+                    body.appendChild(row)
+                    console.log(i + ") Network ID: " + networkID + " hostid : " + hostid + " DDN " + ddn)
+                }
+                aTable.appendChild(body);
+            }
+
+            function handleSubmit(e) {
+                console.log(" hit clicked")
+                e.preventDefault()
+                scheme = schemeField.value
+                if (scheme === "ipv6") {
+                    classtype = "";
+                } else {
+                    classtype = classField.value
+                }
+//                alert(classtype);
+                numHosts = hostsField.value
+                updateNetworks();
+                updateIPs()
+                updateNetworksTable();
+
+            }
+
+            function handleSchemeChange() {
+                if (schemeField.value === "ipv6") {
+                    classField.setAttribute("disabled", "")
+                } else {
+                    classField.removeAttribute("disabled")
+                }
+            }
+
+            //Code starts here
+//            alert(binaryToColonHex("1010100010001000"));
+            var networks = []
+            var scheme;
+            var classtype;
+            var numHosts;
+            var hostBits;
+            var cidr;
+            var networkID;
+            var addressClass;
+            var classField = document.getElementById("classField");
+            var schemeField = document.getElementById("schemeField");
+            schemeField.addEventListener("change", handleSchemeChange)
+            var hostsField = document.getElementById("hostsField")
+            var submitField = document.getElementById("submit")
+            submitField.addEventListener("click", handleSubmit)
+        })()
+
+
+        /*
+            100.113.192.240\28 : {
+                broadcast:"100.113.192.255",
+                lastAssignedAddress:"100.113.192.250",
+                availableHosts: 4
+            }
+        
+            179.155.0.0\16 : {
+                broadcast:"179.155.255.255",
+                lastAssignedAddress:"179.155.3.232",
+                availableHosts: 64534
+            }
+        
+
+        
+            */
+
+    </script>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

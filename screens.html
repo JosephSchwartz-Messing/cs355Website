@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Joseph's CSS355 Website</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+
+
+</head>
+
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="./index.html">Joseph Schwartz-Messing</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./index.html">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="./screens.html">Browser, Screen, Window<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./url.html">URL Analyzer<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./ip.html">IP Address Manager<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Assignments</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#"></a>
+                        <a class="dropdown-item" href="https://learn.zybooks.com/zybook/QCCSCI355TeitelmanFall2018">Zybooks</a>
+                        <a class="dropdown-item" href="https://bbhosted.cuny.edu/bbcswebdav/pid-37561132-dt-content-rid-235555193_1/xid-235555193_1">Download Assignment 0</a>
+                        <a class="dropdown-item" href="https://bbhosted.cuny.edu/bbcswebdav/pid-37574708-dt-content-rid-235672966_1/xid-235672966_1">Download Assignment 1</a>
+                        <a class="dropdown-item" href="https://bbhosted.cuny.edu/bbcswebdav/pid-37639611-dt-content-rid-236797874_1/xid-236797874_1">Download Assignment 2</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <main role="main" class="container">
+
+            <div class="starter-template">
+                <h1>Academic Honesty DISCLAIMER: Bootstrap starter template used and modified. Table information from w3schools</h1>
+            </div>
+            <h2><a href="https://www.w3schools.com/jsref/obj_navigator.asp">Browser</a></h2>
+            <table class="table table-striped">
+
+                <tbody>
+                    <tr>
+                        <th>Property</th>
+                        <th>Description</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_nav_appcodename.asp">appCodeName</a></td>
+                        <td>Returns the code name of the browser</td>
+                        <td id="navigator_codename"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_nav_appname.asp">appName</a></td>
+                        <td>Returns the name of the browser</td>
+                        <td id="navigator_appname"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_nav_appversion.asp">appVersion</a></td>
+                        <td>Returns the version information of the browser</td>
+                        <td id="navigator_appversion"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_nav_cookieenabled.asp">cookieEnabled</a></td>
+                        <td>Determines whether cookies are enabled in the browser</td>
+                        <td id="navigator_cookies"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_nav_language.asp">language</a></td>
+                        <td>Returns the language of the browser</td>
+                        <td id="navigator_language"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_nav_online.asp">onLine</a></td>
+                        <td>Determines whether the browser is online</td>
+                        <td id="navigator_online"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_nav_platform.asp">platform</a></td>
+                        <td>Returns for which platform the browser is compiled</td>
+                        <td id="navigator_platform"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_nav_product.asp">product</a></td>
+                        <td>Returns the engine name of the browser</td>
+                        <td id="navigator_product"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_nav_useragent.asp">userAgent</a></td>
+                        <td>Returns the user-agent header sent by the browser to
+                            the server</td>
+                        <td id="navigator_agent"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2><a href="https://www.w3schools.com/jsref/obj_screen.asp">Screen</a></h2>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Property</th>
+                        <th>Description</th>
+                        <th>Value (Physical Dimensions)</th>
+                    </tr>
+                    <tr>
+                        <td><a href="prop_screen_availheight.asp">availHeight</a></td>
+                        <td>Returns the height of the screen (excluding the Windows Taskbar)</td>
+                        <td id="scn_ah"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="prop_screen_availwidth.asp">availWidth</a></td>
+                        <td>Returns the width of the screen (excluding the Windows Taskbar)</td>
+                        <td id="scn_aw"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="prop_screen_colordepth.asp">colorDepth</a></td>
+                        <td>Returns the bit depth of the color palette for displaying images</td>
+                        <td id="scn_cd"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="prop_screen_height.asp">height</a></td>
+                        <td>Returns the total height of the screen</td>
+                        <td id="scn_h"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="prop_screen_pixeldepth.asp">pixelDepth</a></td>
+                        <td>Returns the color resolution (in bits per pixel) of the screen</td>
+                        <td id="scn_pd"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="prop_screen_width.asp">width</a></td>
+                        <td>Returns the total width of the screen</td>
+                        <td id="scn_w"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <h2><a href="https://www.w3schools.com/jsref/obj_window.asp">Window</a></h2>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Property</th>
+                        <th>Description</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_closed.asp">closed</a></td>
+                        <td>Is Window closed?</td>
+                        <td id="window_closed"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="obj_console.asp">console</a></td>
+                        <td>Object for writing to console </td>
+                        <td>E.g. console.log("function ran")</td>
+                    </tr>
+                    <tr>
+                        <td><a href="dom_obj_document.asp">document</a></td>
+                        <td>Returns the Document object for the window. Used to reference elements on the DOM</td>
+                        <td id="window_document"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_frameElement.asp">frameElement</a></td>
+                        <td>Returns the &lt;iframe&gt; element in which the current window is inserted</td>
+                        <td id="window_fe"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_frames.asp">frames</a></td>
+                        <td>Returns all &lt;iframe&gt; elements in the current window</td>
+                        <td id="window_frames"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="obj_history.asp">history</a></td>
+                        <td>Returns the History object for the window (<a href="obj_history.asp">See History object</a>)</td>
+                        <td id="window_history"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_innerheight.asp">innerHeight</a></td>
+                        <td>Returns the height of the window's content area (viewport) including
+                            scrollbars</td>
+                        <td id="window_innerheight"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_innerheight.asp">innerWidth</a></td>
+                        <td>Returns the width of a window's content area (viewport) including
+                            scrollbars</td>
+                        <td id="window_innerwidth"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_length.asp">length</a></td>
+                        <td>Returns the number of &lt;iframe&gt; elements in the current window</td>
+                        <td id="window_length"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_localstorage.asp">localStorage</a></td>
+                        <td>Allows to save key/value pairs in a web browser. Stores the data with no expiration date</td>
+                        <td id="window_localstorage"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="obj_location.asp">location</a></td>
+                        <td>Returns the Location object for the window (<a href="obj_location.asp">See Location object</a>)</td>
+                        <td id="window_location"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_name.asp">name</a></td>
+                        <td>Sets or returns the name of a window</td>
+                        <td id="window_name"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="obj_navigator.asp">navigator</a></td>
+                        <td>Returns the Navigator object for the window (<a href="obj_navigator.asp">See Navigator object</a>)</td>
+                        <td id="window_navigator"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_opener.asp">opener</a></td>
+                        <td>Returns a reference to the window that created the window</td>
+                        <td id="window_opener"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_outerheight.asp">outerHeight</a></td>
+                        <td>Returns the height of the browser window, including toolbars/scrollbars</td>
+                        <td id="window_outerheight"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_outerheight.asp">outerWidth</a></td>
+                        <td>Returns the width of the browser window, including toolbars/scrollbars</td>
+                        <td id="window_outerwidth"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_pagexoffset.asp">pageXOffset</a></td>
+                        <td>Returns the pixels the current document has been scrolled (horizontally) from the upper left corner of the window</td>
+                        <td id="window_x"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_pagexoffset.asp">pageYOffset</a></td>
+                        <td>Returns the pixels the current document has been scrolled (vertically) from the upper left corner of the window</td>
+                        <td id="window_y"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_parent.asp">parent</a></td>
+                        <td>Returns the parent window of the current window</td>
+                        <td id="window_parent"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="obj_screen.asp">screen</a></td>
+                        <td>Returns the Screen object for the window <a href="obj_screen.asp">(See Screen object)</a></td>
+                        <td id="window_screen"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_screenleft.asp">screenLeft</a></td>
+                        <td>Returns the horizontal coordinate of the window relative to the screen</td>
+                        <td id="window_screenleft"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_screenleft.asp">screenTop</a></td>
+                        <td>Returns the vertical coordinate of the window relative to the screen</td>
+                        <td id="window_screentop"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_screenx.asp">screenX</a></td>
+                        <td>Returns the horizontal coordinate of the window relative to the screen</td>
+                        <td id="window_screenx"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_screenx.asp">screenY</a></td>
+                        <td>Returns the vertical coordinate of the window relative to the screen</td>
+                        <td id="window_screeny"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_sessionstorage.asp">sessionStorage</a></td>
+                        <td>Allows to save key/value pairs in a web browser. Stores the data for one
+                            session</td>
+                        <td id="window_sessionstorage"></td>
+                    </tr>
+                    <tr>
+                        <td>scrollX</td>
+                        <td>An alias of <a href="https://www.w3schools.com/jsref/prop_win_pagexoffset.asp">pageXOffset</a></td>
+                        <td id="window_scrollx"></td>
+                    </tr>
+                    <tr>
+                        <td>scrollY</td>
+                        <td>An alias of <a href="https://www.w3schools.com/jsref/prop_win_pagexoffset.asp">pageYOffset</a></td>
+                        <td id="window_scrolly"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_self.asp">self</a></td>
+                        <td>Returns the current window</td>
+                        <td id="window_self"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_status.asp">status</a></td>
+                        <td>Sets or returns the text in the statusbar of a window</td>
+                        <td id="window_status"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.w3schools.com/jsref/prop_win_top.asp">top</a></td>
+                        <td>Returns the topmost browser window</td>
+                        <td id="window_top"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+    </div>
+    <!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script>
+        var nav_acn = navigator.appCodeName;
+        document.getElementById("navigator_codename").innerHTML = nav_acn;
+        var nav_an = navigator.appName;
+        document.getElementById("navigator_appname").innerHTML = nav_an;
+        var nav_av = navigator.appVersion;
+        document.getElementById("navigator_appversion").innerHTML = nav_av;
+        var nav_cook = navigator.cookieEnabled;
+        document.getElementById("navigator_cookies").innerHTML = nav_cook;
+        var nav_lang = navigator.language;
+        document.getElementById("navigator_language").innerHTML = nav_lang;
+        var nav_on = navigator.onLine;
+        document.getElementById("navigator_online").innerHTML = nav_on;
+        var nav_platform = navigator.platform;
+        document.getElementById("navigator_platform").innerHTML = nav_platform;
+        var nav_prod = navigator.product;
+        document.getElementById("navigator_product").innerHTML = nav_prod;
+        var nav_ua = navigator.userAgent;
+        document.getElementById("navigator_agent").innerHTML = nav_ua;
+
+        //screen
+        var ah = screen.availHeight;
+        document.getElementById("scn_ah").innerHTML = ah;
+        var aw = screen.availWidth;
+        document.getElementById("scn_aw").innerHTML = aw;
+        var cd = screen.colorDepth;
+        document.getElementById("scn_cd").innerHTML = cd;
+        var h = screen.height;
+        document.getElementById("scn_h").innerHTML = h;
+        var pd = screen.pixelDepth;
+        document.getElementById("scn_pd").innerHTML = pd;
+        var w = screen.width;
+        document.getElementById("scn_w").innerHTML = w;
+
+        //Window
+
+    </script>
+
+</body>
+
+</html>
